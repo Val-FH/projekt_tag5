@@ -10,19 +10,23 @@ class Anmeldung extends Model
         'vorname',
         'nachname',
         'email',
-        'kurse_id', 
+        'kurses_id', 
         'teilnahme',
         'startdatum',
         'bemerkung',
-        'interessen',
+        'interest_id',
         'datenschutz'
     ];
 
     protected $casts = [
         'startdatum' => 'date'
     ];
-    public function course()
+    public function kurs()
     {
         return $this->belongsTo(Kurse::class);
+    }
+    public function interest()
+    {
+        return $this->belongsToMany(interest::class);
     }
 }

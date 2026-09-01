@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kurse;
-use Illuminate\Http\Request;
 use App\Models\Anmeldung;
+use App\Models\Interest;    
+use Illuminate\Http\Request;
 
 class PageController extends Controller
 {
@@ -28,28 +29,29 @@ public function pinguine(){
     return view('pinguine' );
 }
 
+public function interessen(){
+    return view('interessen', [ 'interessen' => Interest::orderBy('interessen')->get()]);
+}
 public function kurse(){
-    return view('kurse', [
-        'kurse' => Kurse::orderBy('bezeichnung')->get(),
-    ]);
+    return view('kurse', [ 'kurse' => Kurse::orderBy('bezeichnung')->get()]);
 }
 
 public function anmeldung(){
-    return view('anmeldung', [
-        'kurse' => Kurse::orderBy('bezeichnung')->get(),
-    ]);
+    return view('anmeldung', [ 'kurse' => Kurse::orderBy('bezeichnung')->get() ,
+                                'interessen' => Interest::orderBy('interessen')->get()
+                              ]);
 }
 public function anmeldungAuswerten(Request $request){
     $request->validate([
         'vorname' => ['required', 'string', 'min:3', 'max:255'],
         'nachname' => ['required', 'string','min:2' ,'max:255'],
         'email' => ['required', 'email', 'max:255'],
-        'kurses_id' => ['required', 'exists:kurse,id'],
-        'teilnahme' => ['required', 'in:vor_ort, online'],
+        'kurses_id' => ['required', 'exists:kurses,id'],
+        'teilnahme' => ['required', 'in:vor_ort,online'],
         'startdatum' => ['nullable', 'date'],
         'bemerkung' => ['nullable', 'string','max:500'],
         'datenschutz' => ['required'],
-        'interessen' =>['nullable', 'array'],
+        'interest_id' =>['nullable', 'exists:interests,id'],
     ]);    
 
 Anmeldung::create($request->only([
@@ -60,9 +62,10 @@ Anmeldung::create($request->only([
     'teilnahme',
     'startdatum',
     'bemerkung',
-    'datenschutz' ,
+    'interest_id',
 ]));
 $kurse = Kurse::findOrFail($request->input('kurses_id'));
+$interessen = Interest::findOrFail(($request->input('interest_id')));
 
     return redirect('/danke')->with([
         'vorname' => $request->input('vorname'),
@@ -73,7 +76,7 @@ $kurse = Kurse::findOrFail($request->input('kurses_id'));
         'startdatum' => $request->input('startdatum'),
         'bemerkung' => $request->input('bemerkung'),
         'datenschutz' => $request->input('datenschutz'),
-        'interessen' => $request->input('interessen', []),
+        'interessen' => $interessen->interessen,
     ]);
 }
 

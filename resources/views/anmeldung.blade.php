@@ -41,9 +41,9 @@
 
         <fieldset>
             <legend>Teilnahmeart</legend>
-            <input type="radio" id="online" name="teilnahme" value="online" @checked(old('teilnahme') == 'online') required>
+            <input type="radio" id="online" name="teilnahme" value="online" @checked(old('teilnahme') === 'online')>
             <label for="online">Online</label>
-            <input type="radio" id="vor_ort" name="teilnahme" value="vor_ort" @checked(old('teilnahme') == 'vor_ort') required>
+            <input type="radio" id="vor_ort" name="teilnahme" value="vor_ort" @checked(old('teilnahme') === 'vor_ort')>
             <label for="vor_ort">Vor Ort</label>
         </fieldset>
       <x-error name="teilnahme" /> 
@@ -72,13 +72,13 @@
 
         <fieldset>
           <legend> Interessen</legend>    
-          @foreach(['Backend', 'Frontend','Datenbank','Testing'] as $interesse)
-            <input type="checkbox" id="interesse_{{ $interesse }}" name="interessen[]" value="{{ $interesse }}"
-             @checked(in_array($interesse, old('interessen', [])))>
-            <label for="interesse_{{ $interesse }}">{{ $interesse }}</label> <br>
+          @foreach($interessen as $i )
+            <input type="checkbox" id="interest_id" name="interest_id" value="{{ $i->interessen }}"
+             @checked(old('interest_id') == $i->id)>
+            <label for="interest_id">{{ $i->interessen }}</label> <br>
           @endforeach
         </fieldset> 
-        <x-error name="interessen" /> 
+        <x-error name="interest_id" /> 
         <button type="submit">Anmelden</button>
     </form>
 

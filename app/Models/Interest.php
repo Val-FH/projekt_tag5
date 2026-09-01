@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Kurse extends Model
+class Interest extends Model
 {
     protected $fillable = [
-        'bezeichnung', 'beschreibung'
-        ];
+               'interessen'
+    ];
 
     public function anmeldung(){
-        return $this->hasMany(Anmeldung::class);
+        return $this->belongsToMany(Anmeldung::class);
     }
 }

@@ -11,15 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('anmeldungs', function (Blueprint $table) {
+        Schema::create('interests', function (Blueprint $table) {
             $table->id();
-            $table->string('vorname');
-            $table->string('nachname');
-            $table->string('email');
-            $table->string('kurs');
-            $table->string('teilnahme');
-            $table->date('startdatum')->nullable();
-            $table->text('bemerkung')->nullable();
             $table->string('interessen');
             $table->timestamps();
         });
@@ -30,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('anmeldungs');
+        Schema::dropIfExists('interests');
     }
 };
