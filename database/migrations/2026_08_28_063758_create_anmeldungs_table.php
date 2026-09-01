@@ -16,12 +16,10 @@ return new class extends Migration
             $table->string('vorname');
             $table->string('nachname');
             $table->string('email');
-            $table->enum('kurs', ['PHP 101', 'SQL 101', 'HTML 101', 'CSS 101', 'Laravel für Anfänger']);
-            $table->enum('teilnahme', ['online', 'vor_ort']);
+            $table->string('kurs');
+            $table->string('teilnahme');
             $table->date('startdatum')->nullable();
             $table->text('bemerkung')->nullable();
-            $table->enum('interessen', ['Backend', 'Frontend', 'Datenbank', 'Testing'])->nullable();
-            $table->tinyInteger('datenschutz')->nullable();
             $table->timestamps();
         });
     }

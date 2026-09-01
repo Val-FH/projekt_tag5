@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Kurse;
 use Illuminate\Http\Request;
 use App\Models\Anmeldung;
 
 class PageController extends Controller
 {
-public array $kurse = [ 
-    'PHP 101' => 'Php Grundlagenkurs',
-    'SQL 101' => 'SQL Grundlagenkurs',
-    'HTML 101' => 'HTML Grundlagenkurs',
-    'CSS 101' => 'CSS Grundlagenkurs',
-    'Laravel für Anfänger' => 'Laravel Grundlagenkurs'];
+// public array $kurse = [ 
+ //   'PHP 101' => 'Php Grundlagenkurs',
+ //   'SQL 101' => 'SQL Grundlagenkurs',
+ //   'HTML 101' => 'HTML Grundlagenkurs',
+ //   'CSS 101' => 'CSS Grundlagenkurs',
+ //   'Laravel für Anfänger' => 'Laravel Grundlagenkurs'];
 
 public function welcome(){
     return view('welcome' );
@@ -30,13 +30,13 @@ public function pinguine(){
 
 public function kurse(){
     return view('kurse', [
-        'kurse' => $this->kurse,
+        'kurse' => Kurse::orderBy('bezeichnung')->get(),
     ]);
 }
 
 public function anmeldung(){
     return view('anmeldung', [
-        'kurse' => $this->kurse,
+        'kurse' => Kurse::orderBy('bezeichnung')->get(),
     ]);
 }
 public function anmeldungAuswerten(Request $request){
@@ -44,7 +44,7 @@ public function anmeldungAuswerten(Request $request){
         'vorname' => ['required', 'string', 'min:3', 'max:255'],
         'nachname' => ['required', 'string','min:2' ,'max:255'],
         'email' => ['required', 'email', 'max:255'],
-        'kurs' => ['required'],
+        'kurses_id' => ['required', 'exists:kurse,id'],
         'teilnahme' => ['required', 'in:vor_ort, online'],
         'startdatum' => ['nullable', 'date'],
         'bemerkung' => ['nullable', 'string','max:500'],
@@ -56,18 +56,19 @@ Anmeldung::create($request->only([
     'vorname',
     'nachname' ,
     'email',
-    'kurs' ,
+    'kurses_id' ,
     'teilnahme',
     'startdatum',
     'bemerkung',
     'datenschutz' ,
 ]));
+$kurse = Kurse::findOrFail($request->input('kurses_id'));
 
     return redirect('/danke')->with([
         'vorname' => $request->input('vorname'),
         'nachname' => $request->input('nachname'),
         'email' => $request->input('email'),
-        'kurs' => $request->input('kurs'),
+        'kurs' => $kurse->bezeichnung,
         'teilnahme' => $request->input('teilnahme'),
         'startdatum' => $request->input('startdatum'),
         'bemerkung' => $request->input('bemerkung'),

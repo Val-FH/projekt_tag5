@@ -3,12 +3,12 @@
     <h1>Das hier sind unsere Kurse</h1>
     <table>
         <caption>Kursübersicht</caption>
-        @foreach ($kurse as $key => $value)
+        @foreach ($kurse as $kurs)
             <tr>
 
 
-                <th> {{ $key }}</th>
-                <td> {{ $value }}</td>
+                <th> {{ $kurs->bezeichnung }}</th>
+                <td> {{ $kurs->beschreibung }}</td>
 
 
             </tr>

@@ -28,14 +28,14 @@
         <x-error name="email" />
         <br>
 
-        <label for="kurs">Kurs:</label>
-        <select id="kurs" name="kurs" required>
+        <label for="kurses_id">Kurs:</label>
+        <select id="kurses_id" name="kurses_id" required>
             <option value="">Bitte wählen</option>
-            @foreach ($kurse as $key => $value)
-                <option value="{{ $key }}" @selected(old('kurs') == $key)>{{ $key }}</option>
+            @foreach ($kurse as $kurs)
+                <option value="{{ $kurs->id }}" @selected(old('kurses_id') == $kurs->id)>{{ $kurs->bezeichnung }}</option>
             @endforeach
         </select>
-        <x-error name="kurs" />
+        <x-error name="kurses_id" />
                                     
         <br>
 
