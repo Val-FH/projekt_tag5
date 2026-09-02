@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('teilnahme');
             $table->date('startdatum')->nullable();
             $table->text('bemerkung')->nullable();
-            $table->string('interessen');
             $table->timestamps();
         });
     }

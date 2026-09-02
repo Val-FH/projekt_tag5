@@ -21,10 +21,10 @@ class Anmeldung extends Model
     ];
     public function kurs()
     {
-        return $this->belongsTo(Kurse::class);
+        return $this->belongsTo(Kurse::class, 'kurses_id');
     }
     public function interest()
     {
-        return $this->belongsToMany(Interest::class);
+        return $this->belongsToMany(Interest::class, 'kurses_id');
     }
 }

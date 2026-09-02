@@ -17,7 +17,8 @@
             <p> Bemerkung: {{ $a->bemerkung }} </p>
         @endif
         @if($a->interessen)
-            <p> Interessen: {{ $a->pluck('interessen')->implode(', ') }} </p>
+            <p> Interessen: {{ $a->implode('interessen',', ') }} </p>
+        @endif    
     @empty
         <p> Noch keine Anmeldungen </p>
     @endforelse

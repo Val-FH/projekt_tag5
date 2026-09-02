@@ -32,9 +32,9 @@ public function pinguine(){
 public function interessen(){
     return view('interessen', [ 'interessen' => Interest::orderBy('interessen')->get()]);
 }
-public function kurse(){
-    return view('kurse', [ 'kurse' => Kurse::orderBy('bezeichnung')->get()]);
-}
+//public function kurse(){
+  //  return view('kurse', [ 'kurse' => Kurse::orderBy('bezeichnung')->get()]);
+// }
 
 public function anmeldung(){
     return view('anmeldung', [ 'kurse' => Kurse::orderBy('bezeichnung')->get() ,
@@ -89,5 +89,9 @@ public function anmeldungen(){
         'anmeldungen' => $anmeldungen,
     ]);
 }
+//public function kursShow(Kurse $kurse)
+//{
+//    return view ('kurs' , ['kurs =>$kurse']);
+//}
 
 }

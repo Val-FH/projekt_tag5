@@ -11,6 +11,6 @@ class Kurse extends Model
         ];
 
     public function anmeldung(){
-        return $this->hasMany(Anmeldung::class);
+        return $this->hasMany(Anmeldung::class, 'kurses_id');
     }
 }

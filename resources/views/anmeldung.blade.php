@@ -73,7 +73,7 @@
         <fieldset>
           <legend> Interessen</legend>    
           @foreach($interessen as $i )
-            <input type="checkbox" id="interessen" name="interessen[]" value="{{ $i->interessen }}"
+            <input type="checkbox" id="interessen" name="interessen[]" value="{{ $i->id }}"
              @checked(old('interessen') && in_array($i->interessen, old('interessen')))>
             <label for="interessen">{{ $i->interessen }}</label> <br>
           @endforeach
