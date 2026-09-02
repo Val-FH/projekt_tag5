@@ -73,12 +73,12 @@
         <fieldset>
           <legend> Interessen</legend>    
           @foreach($interessen as $i )
-            <input type="checkbox" id="interest_id" name="interest_id" value="{{ $i->interessen }}"
-             @checked(old('interest_id') == $i->id)>
-            <label for="interest_id">{{ $i->interessen }}</label> <br>
+            <input type="checkbox" id="interessen" name="interessen[]" value="{{ $i->interessen }}"
+             @checked(old('interessen') && in_array($i->interessen, old('interessen')))>
+            <label for="interessen">{{ $i->interessen }}</label> <br>
           @endforeach
         </fieldset> 
-        <x-error name="interest_id" /> 
+        <x-error name="interessen" /> 
         <button type="submit">Anmelden</button>
     </form>
 

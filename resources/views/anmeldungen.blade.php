@@ -10,12 +10,14 @@
             E-Mail: {{ $a->email }}
         </p>
 
-        @if($a->startdaum)
-            <p> Wunsch-Start: {{ $a->startdatum->format('d.m-Y') }} </p>
+        @if($a->startdatum)
+            <p> Wunsch-Start: {{ $a->startdatum->format('d.m.Y') }} </p>
         @endif
         @if($a->bemerkung)
             <p> Bemerkung: {{ $a->bemerkung }} </p>
         @endif
+        @if($a->interessen)
+            <p> Interessen: {{ $a->pluck('interessen')->implode(', ') }} </p>
     @empty
         <p> Noch keine Anmeldungen </p>
     @endforelse

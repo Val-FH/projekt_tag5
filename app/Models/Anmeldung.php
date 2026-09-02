@@ -14,8 +14,6 @@ class Anmeldung extends Model
         'teilnahme',
         'startdatum',
         'bemerkung',
-        'interest_id',
-        'datenschutz'
     ];
 
     protected $casts = [
@@ -27,6 +25,6 @@ class Anmeldung extends Model
     }
     public function interest()
     {
-        return $this->belongsToMany(interest::class);
+        return $this->belongsToMany(Interest::class);
     }
 }

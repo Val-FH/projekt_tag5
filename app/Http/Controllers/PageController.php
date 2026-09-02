@@ -51,10 +51,11 @@ public function anmeldungAuswerten(Request $request){
         'startdatum' => ['nullable', 'date'],
         'bemerkung' => ['nullable', 'string','max:500'],
         'datenschutz' => ['required'],
-        'interest_id' =>['nullable', 'exists:interests,id'],
+        'interessen' =>['nullable', 'array'],
+        'interessen*' =>['exists:interessen,id'],
     ]);    
 
-Anmeldung::create($request->only([
+$anmeldung = Anmeldung::create($request->only([
     'vorname',
     'nachname' ,
     'email',
@@ -62,10 +63,9 @@ Anmeldung::create($request->only([
     'teilnahme',
     'startdatum',
     'bemerkung',
-    'interest_id',
 ]));
 $kurse = Kurse::findOrFail($request->input('kurses_id'));
-$interessen = Interest::findOrFail(($request->input('interest_id')));
+$anmeldung->interest()->attach($request->input('interessen', []));
 
     return redirect('/danke')->with([
         'vorname' => $request->input('vorname'),
@@ -76,7 +76,7 @@ $interessen = Interest::findOrFail(($request->input('interest_id')));
         'startdatum' => $request->input('startdatum'),
         'bemerkung' => $request->input('bemerkung'),
         'datenschutz' => $request->input('datenschutz'),
-        'interessen' => $interessen->interessen,
+        'interessen' => Interest::find($request->input('interessen', []))->pluck('interessen'),
     ]);
 }
 
